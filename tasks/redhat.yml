@@ -1,0 +1,7 @@
+---
+
+- include: centos7.yml
+  when: "{{ ansible_distribution_version | version_compare('7.0', '>=') }}"
+
+- include: centos6.yml
+  when: "{{ ansible_distribution_version | version_compare('7.0', 'lt') }}"

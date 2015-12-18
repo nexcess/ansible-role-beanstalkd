@@ -1,0 +1,24 @@
+---
+
+- name: install beanstalkd
+  yum: 
+    name: "http://cbs.centos.org/kojifiles/packages/beanstalkd/1.9/3.el7/{{ ansible_architecture }}/beanstalkd-1.9-3.el7.{{ ansible_architecture }}.rpm"
+
+- name: install service template
+  template: 
+    src: beanstalkd.service 
+    dest: /usr/lib/systemd/system/beanstalkd.service
+  register: service_updated
+
+- name: install config file
+  template:
+    src: beanstalkd
+    dest: /etc/sysconfig/beanstalkd
+  register: config_updated
+
+- name: enable beanstalkd
+  service: name=beanstalkd enabled=yes
+
+- name: restart beanstalkd
+  service: name=beanstalkd state=restarted
+  when: service_updated.changed or config_updated.changed

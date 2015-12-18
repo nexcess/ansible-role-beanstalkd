@@ -1,0 +1,10 @@
+---
+
+- name: create beanstalkd user
+  user: name={{ beanstalkd_user }} createhome=no shell=/bin/false system=yes state=present
+
+- include: redhat.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- include: debian.yml
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'

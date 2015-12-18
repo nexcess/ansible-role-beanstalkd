@@ -1,0 +1,11 @@
+# System configuration for the beanstalkd daemon
+
+ADDR=-l {{ beanstalkd_address }}
+PORT=-p {{ beanstalkd_port }}
+USER=-u {{ beanstalkd_user }}
+MAX_JOB_SIZE=-z {{ beanstalkd_job_size }}
+{% if beanstalkd_binlog %}
+BINLOG_DIR=-b {{ beanstalkd_binlog_dir }}
+BINLOG_FSYNC_PERIOD=-f {{ beanstalkd_binlog_sync }}
+BINLOG_SIZE=-s {{ beanstalkd_binlog_size }}
+{% endif %}

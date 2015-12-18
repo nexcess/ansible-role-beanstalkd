@@ -1,0 +1,28 @@
+---
+
+- name: install rpm 
+  yum: name=http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm state=present
+
+- name: install beanstalkd
+  yum: name=beanstalkd
+
+- name: install selinux bindings 
+  yum: name=libselinux-python state=present
+
+- name: install init.d template
+  template:
+    src: beanstalkd.init
+    dest: /etc/init.d/beanstalkd
+
+- name: install config file
+  template:
+    src: beanstalkd.centos6
+    dest: /etc/sysconfig/beanstalkd
+  register: config_updated
+
+- name: enable beanstalkd
+  service: name=beanstalkd enabled=yes
+
+- name: restart beanstalkd
+  service: name=beanstalkd state=restarted
+  when: service_updated.changed or config_updated.changed

@@ -1,0 +1,12 @@
+---
+# basic preferences
+beanstalkd_user: beanstalkd
+beanstalkd_port: 11300
+beanstalkd_address: 0.0.0.0
+beanstalkd_job_size: 65535
+
+# setup persistence and binlog
+beanstalkd_binlog: yes
+beanstalkd_binlog_dir: /var/lib/beanstalkd/binlog
+beanstalkd_binlog_sync: 0
+beanstalkd_binlog_size: 10485760

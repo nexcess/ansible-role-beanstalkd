@@ -1,0 +1,15 @@
+---
+
+- name: install beanstalkd
+  apt: name=beanstalkd state=present
+
+- name: install config file
+  template: src=beanstalkd.ubuntu dest=/etc/default/beanstalkd
+  register: config_updated
+
+- name: enable beanstalkd
+  service: name=beanstalkd enabled=yes
+
+- name: restart beanstalkd
+  service: name=beanstalkd state=restarted
+  when: service_updated.changed or config_updated.changed or startup_updated.changed

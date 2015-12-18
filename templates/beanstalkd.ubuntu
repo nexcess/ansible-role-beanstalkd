@@ -1,0 +1,7 @@
+## Defaults for the beanstalkd init script, /etc/init.d/beanstalkd on
+## Debian systems.
+
+BEANSTALKD_LISTEN_ADDR={{beanstalkd_address}}
+BEANSTALKD_LISTEN_PORT={{beanstalkd_port}}
+BEANSTALKD_STORAGE={{ beanstalkd_binlog_dir }}
+DAEMONUSER={{beanstalkd_user}}
